@@ -13,7 +13,7 @@ Router.post('/signup', async (req, res) =>{
     }
 })
 
-Router.post('/all', async (req, res) =>{
+Router.get('/all', async (req, res) =>{
     try {
         res.status(201).send("retieved successful")
     } catch(e){
