@@ -15,7 +15,8 @@ Router.post('/signup', async (req, res) =>{
 
 Router.get('/all', async (req, res) =>{
     try {
-        res.status(201).send("retieved successful")
+        const users = await User.find({})
+        res.status(201).send(users)
     } catch(e){
         res.status(400).send("send failed")
     }
