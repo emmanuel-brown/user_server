@@ -4,6 +4,8 @@ const User = require('../model/user.model')
 
 Router.post('/signup', async (req, res) =>{
     const user = new User(req.body)
+    console.log(req.body)
+
     try {
         await user.save()
         const token = await user.generateAuthToken()
