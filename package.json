@@ -7,6 +7,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "script": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",

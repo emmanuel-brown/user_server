@@ -49,11 +49,16 @@ const userSchema = Schema({
 })
 
 userSchema.methods.generateAuthToken = async function () {
-    const user = this
-    console.log(user)
-    const token = jwt.sign({ _id: user._id.toString() }, process.env.TOKEN)
-    user.tokens = user.tokens.concat({ token })
-    return token
+    try{
+        const user = this
+        const token = await jwt.sign({ _id: user._id.toString(), email: user.email}, process.env.TOKEN, { expiresIn: '1h' })
+        user.tokens = user.tokens.concat({ token })
+        // console.log(token)
+        return token
+    } catch(e){
+        console.log(e)
+    }
+    
 }   
 
 userSchema.statics.findByCredentials = async (email, password) =>{

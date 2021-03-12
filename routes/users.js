@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Router = require('express').Router()
 const auth = require('../middleware/auth')
 const User = require('../model/user.model')
@@ -27,8 +28,8 @@ Router.get('/all', async (req, res) =>{
 Router.post('/login', async (req, res) =>{
     try{
         const user = await User.findByCredentials(req.body.email, req.body.password)
-        const token = await user.generateAuthToken()
-        console.log("new token:", token)
+        const token =  await user.generateAuthToken()
+        user.save()
         res.send({user, token})
     } catch {
         res.status(400).send()
@@ -39,7 +40,7 @@ Router.post('/logoutAll', auth, async (req, res) =>{
     try{
         req.user.tokens = []
         await req.user.save()
-        res.send()
+        res.send(req.user)
     } catch (e) {
         res.status(500).send()
     }
